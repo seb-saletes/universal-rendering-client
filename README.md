@@ -1,1 +1,1 @@
-# universal-rendering-client
+# individual-project
