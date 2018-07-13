@@ -7,11 +7,9 @@
     "node": "10.6.0"
   },
   "scripts": {
-    "postinstall": "npm run build",
-    "clean": "rm -rf .next && rm -rf node_modules/.cache",
-    "build": "npm run clean && next build",
-    "start": "next",
-    "start:prod": "next start"
+    "heroku-postbuild": "next build",
+    "start:prod": "next start -p $PORT",
+    "start": "next"
   },
   "dependencies": {
     "apollo-boost": "^0.1.3",
