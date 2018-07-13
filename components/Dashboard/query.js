@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
 
 export default gql`
-  query($id: String!) {
-    list(id: $id) {
+  query {
+    lists {
       id
       title
       cards {
