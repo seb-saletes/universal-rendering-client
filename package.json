@@ -3,10 +3,15 @@
   "version": "2.0.0",
   "description": "SSR with Next.js / React / Apollo",
   "repository": "https://github.com/seb-saletes/individual-project",
+  "engines": {
+    "node": "10.6.0"
+  },
   "scripts": {
-    "dev": "rm -rf node_modules/.cache && next",
-    "build": "rm -rf node_modules/.cache && next build",
-    "start": "rm -rf node_modules/.cache && next start"
+    "postinstall": "npm run build",
+    "clean": "rm -rf .next && rm -rf node_modules/.cache",
+    "build": "npm run clean && next build",
+    "start": "next",
+    "start:prod": "next start"
   },
   "dependencies": {
     "apollo-boost": "^0.1.3",
