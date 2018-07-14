@@ -5,20 +5,17 @@ import { Mutation } from 'react-apollo'
 import { DeleteButton } from './_style'
 import DELETE_LIST from './deleteList.gql'
 
-const Button = ({ list, update }) => {
-  console.log('list', list)
-  return (
-    <Mutation
-      mutation={DELETE_LIST}
-      variables={{ _id: list._id }}
-      update={update}
-    >
-      {(deleteList, { data }) => (
-        <DeleteButton onClick={() => deleteList({ variables: { _id: list._id } })}>X</DeleteButton>
-      )}
-    </Mutation>
-  )
-}
+const Button = ({ list, update }) => (
+  <Mutation
+    mutation={DELETE_LIST}
+    variables={{ _id: list._id }}
+    update={update}
+  >
+    {(deleteList, { data }) => (
+      <DeleteButton onClick={() => deleteList({ variables: { _id: list._id } })}>X</DeleteButton>
+    )}
+  </Mutation>
+)
 
 Button.propTypes = {
   list: PropTypes.shape({
