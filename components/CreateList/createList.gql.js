@@ -1,12 +1,12 @@
 import gql from 'graphql-tag'
 
 export default gql`
-  query($id: String!) {
-    list(id: $id) {
-      id
+  mutation($title: String!) {
+    createList(title: $title) {
+      _id
       title
       cards {
-        id
+        _id
         title
       }
     }

@@ -3,14 +3,7 @@ import React from 'react'
 import { ApolloProvider } from 'react-apollo'
 import { ThemeProvider } from 'styled-components'
 import withApolloClient from '../lib/with-apollo-client'
-
-
-const theme = {
-  colorPrimary: '#f3e5f5',
-  colorLight: '#ffffff',
-  colorDark: '#c0b3c2',
-}
-
+import theme from './_theme'
 
 class MyApp extends App {
   render() {

@@ -1,10 +1,10 @@
 import React from 'react'
-import Dashboard from '../components/Dashboard/Dashboard'
 import Navbar from '../components/Navbar/Navbar'
+import Board from '../components/Board/Board'
 
 export default () => (
   <React.Fragment>
     <Navbar />
-    <Dashboard />
+    <Board />
   </React.Fragment>
 )

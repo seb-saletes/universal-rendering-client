@@ -3,10 +3,10 @@ import gql from 'graphql-tag'
 export default gql`
   query {
     lists {
-      id
+      _id
       title
       cards {
-        id
+        _id
         title
       }
     }
