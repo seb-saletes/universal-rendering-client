@@ -42,6 +42,17 @@ const CardContainer = styled.div`
   overflow: auto;
 `
 
+const CreateCardButton = styled.div`
+  background: #e2e4e6;
+  padding: 10px 20px;
+  font-size: 14px;
+  color: #8c8c8c;
+  
+  cursor: pointer;
+  &:hover {
+    background-color: #c4c9cc;
+  }
+`
 
 export {
   Container,
@@ -49,4 +60,5 @@ export {
   Title,
   DeleteButton,
   CardContainer,
+  CreateCardButton,
 }
