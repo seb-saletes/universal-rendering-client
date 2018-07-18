@@ -1,14 +1,11 @@
 import gql from 'graphql-tag'
+import ListFragment from '../_fragments/list.gql'
 
 export default gql`
   mutation($title: String!) {
     createList(title: $title) {
-      _id
-      title
-      cards {
-        _id
-        title
-      }
+      ...ListFragment
     }
   }
+  ${ListFragment}
 `

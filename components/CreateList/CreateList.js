@@ -1,21 +1,31 @@
 import React from 'react'
 import { Mutation } from 'react-apollo'
 
-import { Container, Input, ButtonsContainer, AddButton } from './_style'
-import CREATE_LIST from './createList.gql'
+import { Container, Input } from './__style'
+
+import GET_LISTS from '../_queries/lists.gql'
+import CREATE_LIST from './_createList.gql'
+
+import AddButton from '../AddButton/AddButton'
 
 
-class Dashboard extends React.Component {
+class CreateList extends React.Component {
   submit = (cb) => {
     cb({ variables: { title: this.inputNode.value } })
     this.inputNode.value = ''
   }
 
-  render() {
-    const { update } = this.props
+  update = (cache, { data: { createList } }) => {
+    const { lists } = cache.readQuery({ query: GET_LISTS })
+    cache.writeQuery({
+      query: GET_LISTS,
+      data: { lists: [...lists, createList] },
+    })
+  }
 
+  render() {
     return (
-      <Mutation mutation={CREATE_LIST} update={update}>
+      <Mutation mutation={CREATE_LIST} update={this.update}>
         {(createList, { data }) => (
           <Container>
             <Input
@@ -24,11 +34,7 @@ class Dashboard extends React.Component {
               }}
               placeholder="Enter list title..."
             />
-            <ButtonsContainer>
-              <AddButton onClick={() => this.submit(createList, data)}>
-                  Add List
-              </AddButton>
-            </ButtonsContainer>
+            <AddButton onClick={() => this.submit(createList, data)}>Add List</AddButton>
           </Container>
         )}
       </Mutation>
@@ -36,4 +42,4 @@ class Dashboard extends React.Component {
   }
 }
 
-export default Dashboard
+export default CreateList

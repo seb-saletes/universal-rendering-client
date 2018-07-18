@@ -1,14 +1,10 @@
 import gql from 'graphql-tag'
 
 export default gql`
-  query {
-    lists {
+    fragment CardFragment on Card {
       _id
+      listId
       title
-      cards {
-        _id
-        title
-      }
     }
-  }
-`
+  
+  `

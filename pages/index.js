@@ -1,7 +1,10 @@
 import React from 'react'
+import Navbar from '../components/Navbar/Navbar'
+import Board from '../components/Board/Board'
 
 export default () => (
-  <main>
-    <div>Index, go to /dashboard to see list</div>
-  </main>
+  <React.Fragment>
+    <Navbar />
+    <Board />
+  </React.Fragment>
 )
