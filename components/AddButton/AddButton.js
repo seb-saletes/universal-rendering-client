@@ -3,16 +3,20 @@ import PropTypes from 'prop-types'
 
 import { Container, Button } from './_style'
 
-const AddButton = props => (
+const AddButton = ({ children, disabled, onClick }) => (
   <Container>
-    <Button onClick={props.onClick}>{props.children}</Button>
+    <Button disabled={disabled} onClick={onClick}>{children}</Button>
   </Container>
 )
 
 AddButton.propTypes = {
   children: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
   onClick: PropTypes.func,
 }
-AddButton.defaultProps = { onClick: () => {} }
+AddButton.defaultProps = {
+  disabled: false,
+  onClick: () => {},
+}
 
 export default AddButton

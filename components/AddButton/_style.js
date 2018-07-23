@@ -5,7 +5,9 @@ const Container = styled.div`
   align-items: center;
   padding: 4px 0;
 `
-const Button = styled.span`
+const Button = styled.button`
+
+    opacity: ${({ disabled }) => (disabled ? '0.7' : '1')};
     background: #5aac44;
     box-shadow: 0 1px 0 #519839;
     color: #fff;

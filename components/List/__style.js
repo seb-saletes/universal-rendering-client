@@ -36,12 +36,7 @@ const ListFooter = styled.div`
     
     cursor: pointer;
         
-    ${({ isAddingCard }) => (!isAddingCard
-    ? `
-      &:hover {
-        background-color: #c4c9cc;
-      }`
-    : 'display: none;')};
+    ${({ isAddingCard }) => (isAddingCard && 'display: none;')};
 `
 
 export {

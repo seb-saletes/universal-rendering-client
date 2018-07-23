@@ -1,7 +1,10 @@
 import styled from 'styled-components'
 
+const Container = styled.div`
+  margin-bottom: 5px;
+`
+
 const Textarea = styled.textarea`
-    overflow-x: hidden;
     word-wrap: break-word;
     resize: vertical;
     border: none;
@@ -19,4 +22,7 @@ const Textarea = styled.textarea`
     font-size: 14px;
 `
 
-export { Textarea }
+export {
+  Container,
+  Textarea,
+}

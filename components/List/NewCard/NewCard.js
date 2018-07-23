@@ -10,7 +10,7 @@ import EditableCard from '../../EditableCard/EditableCard'
 
 class NewCard extends React.Component {
   submit = (createCard) => {
-    createCard({ variables: { listId: this.props.list._id, title: this.editableCardRef.getValue() } })
+    createCard({ variables: { listId: this.props.list._id, title: this.editableCardRef.state.value } })
   }
 
   update = (cache, { data: { createCard } }) => {

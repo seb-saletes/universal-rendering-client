@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 const ListsContainer = styled.div` 
   display: flex;
-  overflow-x: auto;
+  overflow-x: scroll;
   padding: 20px 0;
   
   > * {

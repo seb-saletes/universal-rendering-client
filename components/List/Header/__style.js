@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Header = styled.div` 
+const Container = styled.div` 
   line-height: ${({ theme }) => theme.size.listHeader};
   font-size: 16px;
   font-weight: bold;
@@ -36,6 +36,6 @@ const Button = styled(props => (
   }
 `
 export {
-  Header,
+  Container,
   Button,
 }

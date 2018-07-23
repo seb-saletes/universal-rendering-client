@@ -31,7 +31,7 @@ class Card extends React.Component {
       variables: {
         listId: this.props.card.listId,
         cardId: this.props.card._id,
-        title: this.editableCardRef.getValue(),
+        title: this.editableCardRef.state.value,
       },
     })
   }
@@ -50,18 +50,23 @@ class Card extends React.Component {
     this.editModeOff()
   }
 
+  handleRef = (ref) => {
+    this.editableCardRef = ref ? ref.getInstance() : ref
+  }
+
   render() {
-    const { card } = this.props
+    const { card, matchFilter } = this.props
 
     if (this.state.editMode) {
       return (
         <Mutation mutation={UPDATE_CARD} update={this.update}>
           {updateCard => (
             <EditableCard
-              ref={(ref) => { this.editableCardRef = ref }}
+              ref={this.handleRef}
               initialValue={this.props.card.title}
               buttonText="Update card"
               onClick={() => this.submit(updateCard)}
+              onClickOutside={this.editModeOff}
             />
           )}
         </Mutation>
@@ -69,7 +74,7 @@ class Card extends React.Component {
     }
 
     return (
-      <CardContainer>
+      <CardContainer matchFilter={matchFilter}>
         {card.title}
         <div>
           <Icon onClick={this.editModeOn} name="fas fa-pen" />
@@ -80,6 +85,9 @@ class Card extends React.Component {
   }
 }
 
-Card.propTypes = { card: PropTypes.object.isRequired }
+Card.propTypes = {
+  card: PropTypes.object.isRequired,
+  matchFilter: PropTypes.bool.isRequired,
+}
 
-export default onClickOutside(Card)
+export default Card

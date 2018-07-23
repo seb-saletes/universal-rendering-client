@@ -21,21 +21,29 @@ class List extends React.Component {
     this.setState({ isAddingCard: true }, () => this.showNewCard())
   }
 
-  hideNewCard = () => this.setState({ isAddingCard: false })
+  hideNewCard = () => {
+    this.setState({ isAddingCard: false })
+  }
 
   render() {
-    const { list } = this.props
+    const { list, cardsFilter } = this.props
 
     return (
       <ListContainer>
         <ListContent>
           <Header list={list} />
+
           <CardsContainer
             innerRef={(ref) => {
               this.CardsContainerNode = ref
             }}
           >
-            {list.cards && list.cards.map(card => <Card key={card._id} card={card} />)}
+            {list.cards && list.cards.map((card) => {
+              const matchFilter = !!cardsFilter && card.title.toLowerCase().includes(cardsFilter)
+
+              return <Card key={card._id} card={card} matchFilter={matchFilter} />
+            })}
+
             {this.state.isAddingCard && <NewCard list={list} hideNewCard={this.hideNewCard} />}
           </CardsContainer>
 
@@ -54,6 +62,7 @@ List.propTypes = {
     title: PropTypes.string.isRequired,
     cards: PropTypes.array.isRequired,
   }).isRequired,
+  cardsFilter: PropTypes.string.isRequired,
 }
 
 export default List

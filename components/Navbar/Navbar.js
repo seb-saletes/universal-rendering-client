@@ -1,12 +1,30 @@
 import React from 'react'
-import { Navbar, LogoutButton, SearchbBar } from './_style'
+import PropTypes from 'prop-types'
+import { debounce as _debounce } from 'lodash'
 
-const NavbarComponent = () => (
-  <Navbar>
-    HKUST Individual Project
-    <SearchbBar placeholder="Search cards" />
-    <LogoutButton>Logout</LogoutButton>
-  </Navbar>
-)
+import { Container, LogoutButton, SearchbBar } from './_style'
 
-export default NavbarComponent
+class Navbar extends React.Component {
+  constructor(props) {
+    super(props)
+    this.onSearch = _debounce(props.onSearch, 200)
+  }
+
+
+  render() {
+    return (
+      <Container>
+        HKUST Individual Project
+        <SearchbBar
+          onChange={e => this.onSearch(e.target.value)}
+          placeholder="Search cards"
+        />
+        <LogoutButton>Logout</LogoutButton>
+      </Container>
+    )
+  }
+}
+
+Navbar.propTypes = { onSearch: PropTypes.func.isRequired }
+
+export default Navbar

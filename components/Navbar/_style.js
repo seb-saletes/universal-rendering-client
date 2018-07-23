@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Navbar = styled.div`
+const Container = styled.div`
   position: relative;
   padding: ${({ theme }) => theme.size.gap};
   display: flex;
@@ -43,7 +43,7 @@ const SearchbBar = styled.input`
     }
 `
 export {
-  Navbar,
+  Container,
   LogoutButton,
   SearchbBar,
 }

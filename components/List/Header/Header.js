@@ -1,18 +1,29 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { Header } from './__style'
+import { Container } from './__style'
 
 import DeleteButton from './DeleteButton'
 
-const ListHeader = ({ list }) => (
-  <Header>
-    {list.title}
-    <DeleteButton list={list} />
-  </Header>
-)
+class Header extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
 
-ListHeader.propTypes = {
+  render() {
+    const { list } = this.props
+
+    return (
+      <Container>
+        {list.title}
+        <DeleteButton list={list} />
+      </Container>
+    )
+  }
+}
+
+Header.propTypes = {
   list: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
@@ -20,4 +31,4 @@ ListHeader.propTypes = {
   }).isRequired,
 }
 
-export default ListHeader
+export default Header

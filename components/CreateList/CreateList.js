@@ -8,11 +8,15 @@ import CREATE_LIST from './_createList.gql'
 
 import AddButton from '../AddButton/AddButton'
 
-
 class CreateList extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { value: '' }
+  }
+
   submit = (cb) => {
-    cb({ variables: { title: this.inputNode.value } })
-    this.inputNode.value = ''
+    cb({ variables: { title: this.state.value } })
+    this.state.value = ''
   }
 
   update = (cache, { data: { createList } }) => {
@@ -23,18 +27,21 @@ class CreateList extends React.Component {
     })
   }
 
+  onChange = (e) => {
+    this.setState({ value: e.target.value })
+  }
+
   render() {
     return (
       <Container>
-        <Input
-          innerRef={(ref) => {
-            this.inputNode = ref
-          }}
-          placeholder="Enter list title..."
-        />
+        <Input value={this.state.value} onChange={this.onChange} placeholder="Enter list title..." />
         <Mutation mutation={CREATE_LIST} update={this.update}>
           {(createList, { data }) => (
-            <AddButton onClick={() => this.submit(createList, data)}>Add List</AddButton>
+            <AddButton
+              disabled={!this.state.value}
+              onClick={() => this.submit(createList, data)}
+            >Add List
+            </AddButton>
           )}
         </Mutation>
       </Container>

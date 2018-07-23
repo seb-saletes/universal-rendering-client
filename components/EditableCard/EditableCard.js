@@ -2,33 +2,33 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import onClickOutside from 'react-onclickoutside'
 
-import { Textarea } from './__styles'
+import { Container, Textarea } from './__styles'
 
 import AddButton from '../AddButton/AddButton'
 
 class EditableCard extends React.Component {
-  componentDidMount() {
-    this.inputNode.value = this.props.initialValue
+  constructor(props) {
+    super(props)
+    this.state = { value: props.initialValue }
   }
 
-  handleClickOutside = () => {
-    this.props.onClickOutside()
-  }
+  handleClickOutside = () => this.props.onClickOutside()
 
-  getValue = () => this.inputNode.value
+  onChange = (e) => {
+    this.setState({ value: e.target.value })
+  }
 
   render() {
     return (
-      <div>
+      <Container>
         <Textarea
-          innerRef={(ref) => {
-            this.inputNode = ref
-          }}
+          value={this.state.value}
+          onChange={this.onChange}
           type="text"
           placeholder="Enter a title for this card..."
         />
-        <AddButton onClick={this.props.onClick}>{this.props.buttonText}</AddButton>
-      </div>
+        <AddButton disabled={!this.state.value} onClick={this.props.onClick}>{this.props.buttonText}</AddButton>
+      </Container>
     )
   }
 }
@@ -36,13 +36,10 @@ class EditableCard extends React.Component {
 EditableCard.propTypes = {
   onClick: PropTypes.func.isRequired,
   buttonText: PropTypes.string.isRequired,
-  onClickOutside: PropTypes.func,
+  onClickOutside: PropTypes.func.isRequired,
   initialValue: PropTypes.string,
 }
 
-EditableCard.defaultProps = {
-  initialValue: '',
-  onClickOutside: () => {},
-}
+EditableCard.defaultProps = { initialValue: '' }
 
 export default onClickOutside(EditableCard)

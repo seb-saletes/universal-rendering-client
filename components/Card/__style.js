@@ -6,8 +6,10 @@ const CardContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   min-height: 20px;
+  
+  
 
-  background-color: #fff;
+  background-color: ${({ matchFilter }) => matchFilter ? 'yellow' : 'white'};
   padding: ${({ theme }) => theme.size.gap};
 
   &:not(:last-child) {
