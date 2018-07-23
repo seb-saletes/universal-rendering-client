@@ -2,9 +2,9 @@ import styled from 'styled-components'
 
 const Container = styled.div`
   padding: 8px;
-  border-radius: 3px;
-  background-color: #e2e4e6;
-  transition: background 85ms ease-in,opacity 40ms ease-in,border-color 85ms ease-in;
+  width: ${({ theme }) => theme.size.listWidth};
+  border-radius: ${({ theme }) => theme.size.listBorderRadius};
+  background-color: ${({ theme }) => theme.color.listBg};
   height: 70px;
 `
 const Input = styled.input`

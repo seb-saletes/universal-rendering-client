@@ -1,64 +1,52 @@
 import styled from 'styled-components'
 
-const Container = styled.div`
-  background: #e2e4e6;
-  border-radius: 3px;
-  box-sizing: border-box;
-  white-space: normal;
-  overflow: auto;
-  margin-right: 10px;
+const ListContainer = styled.div`
+
+  width: ${({ theme }) => theme.size.listWidth};
+  height: 100%;
+  display: inline-block;
 `
 
-const Header = styled.div`
-    cursor: pointer;
-    margin-bottom: 15px;
+const ListContent = styled.div`
+    box-sizing: border-box;
     display: flex;
-    align-items: center;
-    padding: 8px;
-    justify-content: space-between;
-`
-const Title = styled.div`
-    font-size: 14px;
-    cursor: pointer;
-    font-weight: bolder;
-`
-
-const DeleteButton = styled.div`
-    font-size: 16px;
-    cursor: pointer;
-    font-weight: bolder;
-    color: #999;
-    padding: 4px 8px;
-    border-radius: 3px;
+    flex-direction: column;
+    max-height: 100%;
     
-    &:hover {
-      color: #4d4d4d;
-      background-color: rgb(205, 210, 212);
-    }
-`
-
-const CardContainer = styled.div`
-  height: calc(100% - 60px);
-  overflow: auto;
-`
-
-const CreateCardButton = styled.div`
-  background: #e2e4e6;
-  padding: 10px 20px;
-  font-size: 14px;
-  color: #8c8c8c;
-  
-  cursor: pointer;
-  &:hover {
-    background-color: #c4c9cc;
+  > * {
+    background-color: ${({ theme }) => theme.color.listBg};
+    color: #333;
+    padding: 0 ${({ theme }) => theme.size.gap};
   }
 `
 
+const CardsContainer = styled.div` 
+    list-style: none;
+    margin: 0;
+    max-height: calc(100% - ${({ theme }) => theme.size.listHeader} - ${({ theme }) => theme.size.listFooter});
+    overflow-y: auto;
+    padding-bottom: ${({ theme }) => theme.size.gap};
+`
+
+const ListFooter = styled.div` 
+    line-height: ${({ theme }) => theme.size.listFooter};
+    border-bottom-left-radius: ${({ theme }) => theme.size.listBorderRadius};
+    border-bottom-right-radius: ${({ theme }) => theme.size.listBorderRadius};
+    color: #888;
+    
+    cursor: pointer;
+        
+    ${({ isAddingCard }) => (!isAddingCard
+    ? `
+      &:hover {
+        background-color: #c4c9cc;
+      }`
+    : 'display: none;')};
+`
+
 export {
-  Container,
-  Header,
-  Title,
-  DeleteButton,
-  CardContainer,
-  CreateCardButton,
+  ListContainer,
+  ListContent,
+  CardsContainer,
+  ListFooter,
 }

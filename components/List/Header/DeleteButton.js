@@ -3,13 +3,13 @@ import PropTypes from 'prop-types'
 import { Mutation } from 'react-apollo'
 import { remove as _remove } from 'lodash'
 
-import { DeleteButton } from './__style'
+import { Button } from './__style'
 
-import GET_LISTS from '../_queries/lists.gql'
+import GET_LISTS from '../../_queries/lists.gql'
 import DELETE_LIST from './_deleteList.gql'
 
-class Button extends React.Component {
-  update = (cache, { data: { deleteList }, ...data }) => {
+class DeleteListButton extends React.Component {
+  update = (cache, { data: { deleteList } }) => {
     const { lists } = cache.readQuery({ query: GET_LISTS })
 
     _remove(lists, { _id: deleteList._id })
@@ -27,15 +27,18 @@ class Button extends React.Component {
         variables={{ _id: this.props.list._id }}
         update={this.update}
       >
-        {(deleteList, { data }) => (
-          <DeleteButton onClick={() => deleteList({ variables: { _id: this.props.list._id } })}>X</DeleteButton>
+        {deleteList => (
+          <Button
+            onClick={() => deleteList({ variables: { _id: this.props.list._id } })}
+            name="fas fa-times"
+          />
         )}
       </Mutation>
     )
   }
 }
 
-Button.propTypes = {
+DeleteListButton.propTypes = {
   list: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
@@ -43,4 +46,4 @@ Button.propTypes = {
   }).isRequired,
 }
 
-export default Button
+export default DeleteListButton

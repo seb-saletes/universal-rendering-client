@@ -1,10 +1,11 @@
 import React from 'react'
-import { Navbar, Item, SearchbBar } from './_style'
+import { Navbar, LogoutButton, SearchbBar } from './_style'
 
 const NavbarComponent = () => (
   <Navbar>
-    <Item>Logout</Item>
+    HKUST Individual Project
     <SearchbBar placeholder="Search cards" />
+    <LogoutButton>Logout</LogoutButton>
   </Navbar>
 )
 

@@ -1,13 +1,21 @@
 import React from 'react'
 import styled, { ServerStyleSheet } from 'styled-components'
 import Document, { Head, Main, NextScript } from 'next/document'
-import theme from './_theme'
 
 const Body = styled.body`
   margin: 0;
-  background: ${theme.color.primaryLight};
-  > * {
-    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 1.3em;
+  font-family: 'Roboto', "Helvetica Neue", Arial, Helvetica, sans-serif;
+  
+  button, input[type="submit"], input[type="reset"] {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
   }
 `
 export default class MyDocument extends Document {

@@ -1,8 +1,5 @@
 import styled from 'styled-components'
 
-const Container = styled.div`
-    padding: 0 9px 4px 8px;
-`
 const Textarea = styled.textarea`
     overflow-x: hidden;
     word-wrap: break-word;
@@ -22,8 +19,4 @@ const Textarea = styled.textarea`
     font-size: 14px;
 `
 
-export {
-  Button,
-  Container,
-  Textarea,
-}
+export { Textarea }

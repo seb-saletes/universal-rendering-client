@@ -25,19 +25,19 @@ class CreateList extends React.Component {
 
   render() {
     return (
-      <Mutation mutation={CREATE_LIST} update={this.update}>
-        {(createList, { data }) => (
-          <Container>
-            <Input
-              innerRef={(ref) => {
-                this.inputNode = ref
-              }}
-              placeholder="Enter list title..."
-            />
+      <Container>
+        <Input
+          innerRef={(ref) => {
+            this.inputNode = ref
+          }}
+          placeholder="Enter list title..."
+        />
+        <Mutation mutation={CREATE_LIST} update={this.update}>
+          {(createList, { data }) => (
             <AddButton onClick={() => this.submit(createList, data)}>Add List</AddButton>
-          </Container>
-        )}
-      </Mutation>
+          )}
+        </Mutation>
+      </Container>
     )
   }
 }

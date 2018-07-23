@@ -1,38 +1,40 @@
 import styled from 'styled-components'
 import React from 'react'
 
-const Container = styled.div`
-  background: white;
-  box-shadow: 0 1px 0 #ccc;
-  cursor: pointer;
-  margin: 8px;
-  max-width: 300px;
-  border-radius: 3px;
-  padding: 8px;
-  font-size: 14px;
+const CardContainer = styled.div`
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  overflow: hidden;
+  min-height: 20px;
+
+  background-color: #fff;
+  padding: ${({ theme }) => theme.size.gap};
+
+  &:not(:last-child) {
+    margin-bottom: ${({ theme }) => theme.size.gap};
+  }
+
+  border-radius: ${({ theme }) => theme.size.cardBorderRadius};
+  box-shadow: 0 1px 1px rgba(0,0,0, 0.1);
   
   &:hover {
-    background-color: #edeff0;
-    border-bottom-color: #d6dadc;
-    
-    
-    i {
-      display: inline-block !important;
-    }
-  }
+     background-color: #edeff0;
+     border-bottom-color: #d6dadc;
+
+
+     i {
+       display: inline-block !important;
+     }
+   }
 `
 
-const Title = styled.div`
-    max-width: 80%;
-    word-wrap: break-word;
-    min-height: 20px;
-    line-height: 20px;
-`
-
-const Icon = styled(props => <i className={`${props.className} ${props.name}`} onClick={props.onClick} />)`
+const Icon = styled(props => (
+  <i
+    role="button"
+    className={`${props.className} ${props.name}`}
+    onClick={props.onClick}
+  />
+))`
   color: #999;
   font-size: 12px;
   padding: 4px;
@@ -47,7 +49,6 @@ const Icon = styled(props => <i className={`${props.className} ${props.name}`} o
   }
 `
 export {
-  Container,
-  Title,
+  CardContainer,
   Icon,
 }

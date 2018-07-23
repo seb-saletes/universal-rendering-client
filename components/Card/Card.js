@@ -2,13 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Mutation } from 'react-apollo'
 import onClickOutside from 'react-onclickoutside'
-import { findIndex as _findIndex, remove as _remove } from 'lodash'
-
+import { findIndex as _findIndex } from 'lodash'
 
 import GET_LISTS from '../_queries/lists.gql'
 import UPDATE_CARD from './_updateCard.gql'
 
-import { Container, Title, Icon } from './__style'
+import { CardContainer, Icon } from './__style'
 
 import DeleteButton from './DeleteButton'
 import EditableCard from '../EditableCard/EditableCard'
@@ -37,7 +36,7 @@ class Card extends React.Component {
     })
   }
 
-  update = (cache, { data: { updateCard }, ...data }) => {
+  update = (cache, { data: { updateCard } }) => {
     const { lists } = cache.readQuery({ query: GET_LISTS })
     const idxList = _findIndex(lists, ['_id', updateCard.listId])
     const idxCard = _findIndex(lists[idxList].cards, ['_id', updateCard._id])
@@ -53,36 +52,34 @@ class Card extends React.Component {
 
   render() {
     const { card } = this.props
+
+    if (this.state.editMode) {
+      return (
+        <Mutation mutation={UPDATE_CARD} update={this.update}>
+          {updateCard => (
+            <EditableCard
+              ref={(ref) => { this.editableCardRef = ref }}
+              initialValue={this.props.card.title}
+              buttonText="Update card"
+              onClick={() => this.submit(updateCard)}
+            />
+          )}
+        </Mutation>
+      )
+    }
+
     return (
-      <div ref={(ref) => { this.containerNode = ref }}>
-        {!this.state.editMode
-          ? (
-            <Container>
-              <Title>{card.title}</Title>
-              <div>
-                <Icon onClick={this.editModeOn} name="fas fa-pen" />
-                <DeleteButton card={card} />
-              </div>
-            </Container>
-          )
-          : (
-            <Mutation mutation={UPDATE_CARD} update={this.update}>
-              {(updateCard, { data }) => (
-                <EditableCard
-                  ref={(ref) => { this.editableCardRef = ref }}
-                  list={this.props.list}
-                  initialValue={this.props.card.title}
-                  buttonText="Update card"
-                  onClick={() => this.submit(updateCard)}
-                />
-              )}
-            </Mutation>
-          )
-        }
-      </div>
+      <CardContainer>
+        {card.title}
+        <div>
+          <Icon onClick={this.editModeOn} name="fas fa-pen" />
+          <DeleteButton card={card} />
+        </div>
+      </CardContainer>
     )
   }
 }
+
 Card.propTypes = { card: PropTypes.object.isRequired }
 
 export default onClickOutside(Card)

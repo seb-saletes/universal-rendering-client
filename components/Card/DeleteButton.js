@@ -10,7 +10,7 @@ import DELETE_CARD from './_deleteCard.gql'
 import { Icon } from './__style'
 
 class Card extends React.Component {
-  update = (cache, { data: { deleteCard }, ...data }) => {
+  update = (cache, { data: { deleteCard } }) => {
     const { lists } = cache.readQuery({ query: GET_LISTS })
     const idx = _findIndex(lists, ['_id', deleteCard.listId])
 
@@ -32,7 +32,7 @@ class Card extends React.Component {
           deleteCard: { ...this.props.card },
         }}
       >
-        {(deleteCard, { data }) => (
+        {deleteCard => (
           <Icon
             onClick={() => deleteCard({ variables: { listId: this.props.card.listId, cardId: this.props.card._id } })}
             name="fas fa-times"

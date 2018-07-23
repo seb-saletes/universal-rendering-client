@@ -2,30 +2,32 @@ import styled from 'styled-components'
 
 const Navbar = styled.div`
   position: relative;
-  border-radius: 3px;
-  padding: 4px;
+  padding: ${({ theme }) => theme.size.gap};
   display: flex;
   align-items: center;
-  color: white;
-  background: ${({ theme }) => theme.color.primary};
-  text-align: center;
-  justify-content: flex-end;
+  background-color: ${({ theme }) => theme.color.navbar};
+  font-size: 1.5rem;
 `
 
-const Item = styled.span`
+const LogoutButton = styled.span`
   background: ${({ theme }) => theme.color.primaryLight};
-  margin-left: 4px;
   padding: 10px;
   border-radius: 3px;
   cursor: pointer;
   z-index: 1;
   font-size: 14px;
+  margin-left: auto;
   
   &:hover {
     background: hsla(0, 0%, 100%, .2);
   }
 `
 const SearchbBar = styled.input`
+    position: absolute;
+    left: 0;
+    margin: auto;
+    right: 0;
+
     border-radius: 3px;
     border: none;
     font-size: 13px;
@@ -33,14 +35,7 @@ const SearchbBar = styled.input`
     padding-right: 32px;
     padding-left: 8px;
     line-height: 19px;
-    transition: width .15s;
     width: 300px;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    margin: auto;
     
     &:active, &:focus {
       border: none;
@@ -49,6 +44,6 @@ const SearchbBar = styled.input`
 `
 export {
   Navbar,
-  Item,
+  LogoutButton,
   SearchbBar,
 }
