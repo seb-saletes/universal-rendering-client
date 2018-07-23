@@ -1,23 +1,7 @@
 import React from 'react'
-import styled, { ServerStyleSheet } from 'styled-components'
+import { ServerStyleSheet } from 'styled-components'
 import Document, { Head, Main, NextScript } from 'next/document'
 
-const Body = styled.body`
-  margin: 0;
-  font-size: 14px;
-  line-height: 1.3em;
-  font-family: 'Roboto', "Helvetica Neue", Arial, Helvetica, sans-serif;
-  
-  button, input[type="submit"], input[type="reset"] {
-    background: none;
-    color: inherit;
-    border: none;
-    padding: 0;
-    font: inherit;
-    cursor: pointer;
-    outline: inherit;
-  }
-`
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx)
@@ -40,10 +24,10 @@ export default class MyDocument extends Document {
           />
           {this.props.styleTags}
         </Head>
-        <Body>
+        <body>
           <Main />
           <NextScript />
-        </Body>
+        </body>
       </html>
     )
   }

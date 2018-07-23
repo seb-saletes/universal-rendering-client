@@ -3,6 +3,7 @@ import React from 'react'
 import { ApolloProvider } from 'react-apollo'
 import { ThemeProvider } from 'styled-components'
 import withApolloClient from '../lib/with-apollo-client'
+import withStyle from './_withStyle'
 import theme from './_theme'
 
 class MyApp extends App {
@@ -20,4 +21,4 @@ class MyApp extends App {
   }
 }
 
-export default withApolloClient(MyApp)
+export default withApolloClient(withStyle(MyApp))
