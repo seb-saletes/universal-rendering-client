@@ -4,8 +4,7 @@ import PropTypes from 'prop-types'
 import { ListContainer, ListContent, CardsContainer, ListFooter } from './__style'
 
 import Header from './Header/Header'
-import Card from '../Card/Card'
-import NewCard from './NewCard/NewCard'
+import CardsList from './CardsList'
 
 class List extends React.Component {
   constructor(props) {
@@ -13,12 +12,8 @@ class List extends React.Component {
     this.state = { isAddingCard: false }
   }
 
-  showNewCard = () => {
-    this.CardsContainerNode.scrollTop = this.CardsContainerNode.scrollHeight
-  }
-
   displayNewCard = () => {
-    this.setState({ isAddingCard: true }, () => this.showNewCard())
+    this.setState({ isAddingCard: true })
   }
 
   hideNewCard = () => {
@@ -33,19 +28,12 @@ class List extends React.Component {
         <ListContent>
           <Header list={list} />
 
-          <CardsContainer
-            innerRef={(ref) => {
-              this.CardsContainerNode = ref
-            }}
-          >
-            {list.cards && list.cards.map((card) => {
-              const matchFilter = !!cardsFilter && card.title.toLowerCase().includes(cardsFilter)
-
-              return <Card key={card._id} card={card} matchFilter={matchFilter} />
-            })}
-
-            {this.state.isAddingCard && <NewCard list={list} hideNewCard={this.hideNewCard} />}
-          </CardsContainer>
+          <CardsList
+            list={list}
+            cardsFilter={cardsFilter}
+            isAddingCard={this.state.isAddingCard}
+            hideNewCard={this.hideNewCard}
+          />
 
           <ListFooter isAddingCard={this.state.isAddingCard} onClick={this.displayNewCard}>
             + Add another card

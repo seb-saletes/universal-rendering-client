@@ -25,7 +25,6 @@ const CardsContainer = styled.div`
     margin: 0;
     max-height: calc(100% - ${({ theme }) => theme.size.listHeader} - ${({ theme }) => theme.size.listFooter});
     overflow-y: auto;
-    padding-bottom: ${({ theme }) => theme.size.gap};
 `
 
 const ListFooter = styled.div` 
@@ -35,8 +34,12 @@ const ListFooter = styled.div`
     color: #888;
     
     cursor: pointer;
-        
-    ${({ isAddingCard }) => (isAddingCard && 'display: none;')};
+    
+    &:hover {
+      background-color: #c4c9cc;
+    }
+    
+    display: ${({ isAddingCard }) => (isAddingCard ? 'none' : 'block')}
 `
 
 export {

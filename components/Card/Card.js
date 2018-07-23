@@ -1,16 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Mutation } from 'react-apollo'
-import onClickOutside from 'react-onclickoutside'
-import { findIndex as _findIndex } from 'lodash'
+import { DragSource, DropTarget } from 'react-dnd'
 
-import GET_LISTS from '../_queries/lists.gql'
-import UPDATE_CARD from './_updateCard.gql'
+import { targetSpec, targetCollect } from './DndTarget'
+import { sourceSpec, sourceCollect } from './DndSource'
 
 import { CardContainer, Icon } from './__style'
 
 import DeleteButton from './DeleteButton'
-import EditableCard from '../EditableCard/EditableCard'
+import CardEditing from './CardEditing'
+
 
 class Card extends React.Component {
   constructor(props) {
@@ -18,69 +17,36 @@ class Card extends React.Component {
     this.state = { editMode: false }
   }
 
-  handleClickOutside = () => {
-    this.editModeOff()
-  }
+  getBoundingClientRect = () => this.node.getBoundingClientRect()
 
   editModeOn = () => this.setState({ editMode: true })
 
   editModeOff = () => this.setState({ editMode: false })
 
-  submit = (updateCard) => {
-    updateCard({
-      variables: {
-        listId: this.props.card.listId,
-        cardId: this.props.card._id,
-        title: this.editableCardRef.state.value,
-      },
-    })
-  }
-
-  update = (cache, { data: { updateCard } }) => {
-    const { lists } = cache.readQuery({ query: GET_LISTS })
-    const idxList = _findIndex(lists, ['_id', updateCard.listId])
-    const idxCard = _findIndex(lists[idxList].cards, ['_id', updateCard._id])
-    lists[idxList].cards[idxCard].title = updateCard.title
-
-    cache.writeQuery({
-      query: GET_LISTS,
-      data: { lists },
-    })
-
-    this.editModeOff()
-  }
-
-  handleRef = (ref) => {
-    this.editableCardRef = ref ? ref.getInstance() : ref
-  }
-
   render() {
-    const { card, matchFilter } = this.props
-
-    if (this.state.editMode) {
-      return (
-        <Mutation mutation={UPDATE_CARD} update={this.update}>
-          {updateCard => (
-            <EditableCard
-              ref={this.handleRef}
-              initialValue={this.props.card.title}
-              buttonText="Update card"
-              onClick={() => this.submit(updateCard)}
-              onClickOutside={this.editModeOff}
-            />
-          )}
-        </Mutation>
-      )
-    }
+    const { card, matchFilter, connectDragSource, isDragging, connectDropTarget } = this.props
 
     return (
-      <CardContainer matchFilter={matchFilter}>
-        {card.title}
-        <div>
-          <Icon onClick={this.editModeOn} name="fas fa-pen" />
-          <DeleteButton card={card} />
-        </div>
-      </CardContainer>
+      <React.Fragment>
+        {connectDragSource(
+          connectDropTarget(
+            <div
+              ref={(ref) => {
+                this.node = ref
+              }}
+            >
+              <CardContainer matchFilter={matchFilter} editMode={this.state.editMode} isDragging={isDragging}>
+                {card.title}
+                <div>
+                  <Icon onClick={this.editModeOn} name="fas fa-pen" />
+                  <DeleteButton card={card} />
+                </div>
+              </CardContainer>
+            </div>,
+          ),
+        )}
+        {this.state.editMode && <CardEditing card={card} editModeOff={this.editModeOff} />}
+      </React.Fragment>
     )
   }
 }
@@ -88,6 +54,9 @@ class Card extends React.Component {
 Card.propTypes = {
   card: PropTypes.object.isRequired,
   matchFilter: PropTypes.bool.isRequired,
+  connectDragSource: PropTypes.func.isRequired,
+  connectDropTarget: PropTypes.func.isRequired,
+  isDragging: PropTypes.bool.isRequired,
 }
 
-export default Card
+export default DragSource('CARD', sourceSpec, sourceCollect)(DropTarget('CARD', targetSpec, targetCollect)(Card))
