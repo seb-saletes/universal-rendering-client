@@ -32,6 +32,7 @@
     "jsx-a11y/tabindex-no-positive": "off",
     "jsx-a11y/label-has-for": "off",
     "jsx-a11y/interactive-supports-focus": "off",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "no-param-reassign": "off"
   }
 }

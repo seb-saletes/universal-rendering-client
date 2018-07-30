@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { ListContainer, ListContent, CardsContainer, ListFooter } from './__style'
+import { ListContainer, ListContent, ListFooter } from './__style'
 
 import Header from './Header/Header'
 import CardsList from './CardsList'

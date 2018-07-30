@@ -1,4 +1,13 @@
-export default {
+import { css } from 'styled-components'
+
+const sizes = {
+  desktop: 1200,
+  laptop: 992,
+  tablet: 768,
+  phone: 576,
+}
+
+const theme = {
   color: {
     primary: '#026aa7',
     primaryLight: '#5298d9',
@@ -21,5 +30,16 @@ export default {
     listBorderRadius: '5px',
     cardBorderRadius: '3px',
   },
+
+  media: Object.keys(sizes).reduce((accumulator, label) => {
+    accumulator[label] = (...args) => css`
+    @media (max-width: ${sizes[label]}em) {
+      ${css(...args)}
+    }
+  `
+    return accumulator
+  }, {}),
 }
+
+export default theme
 // $appbar-bg-color: #0067a3;

@@ -1,20 +1,5 @@
-const targetSpec = {
-  hover(props, monitor, component) {
-    if (!component) {
-      return null
-    }
-
-    const dragIndex = monitor.getItem().index
-    const dragListId = monitor.getItem().listId
-    const hoverIndex = props.index
-
-
-    // Don't replace items with themselves
-    if (dragIndex === hoverIndex && props.card.listId === monitor.getItem().listId) {
-      return null
-    }
-
-    // Determine rectangle on screen
+const isMovable = (component, monitor) => {
+  if (component) {
     const hoverBoundingRect = component.getBoundingClientRect()
 
     // Get vertical middle
@@ -23,39 +8,50 @@ const targetSpec = {
     // Determine mouse position
     const clientOffset = monitor.getClientOffset()
 
-
     // Get pixels to the top
     const hoverClientY = clientOffset.y - hoverBoundingRect.top
 
-    // When dragging downwards, only move when the cursor is below 50%
-    // When dragging upwards, only move when the cursor is above 50%
-    // Dragging downwards
-    if (dragListId === props.card.listId && dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-      return null
+    return hoverClientY < hoverMiddleY || hoverClientY > hoverMiddleY
+  }
+  return false
+}
+
+
+const targetSpec = {
+  hover(props, monitor, component) {
+    const targetCard = props.card
+    const targetIndex = props.index
+
+    const { srcIndex, srcListId } = monitor.getItem()
+
+    if (isMovable(component, monitor)) {
+      if (srcListId !== targetCard.listId) {
+        props.moveCard(srcIndex, targetIndex, srcListId, targetCard.listId)
+        monitor.getItem().srcListId = targetCard.listId
+        monitor.getItem().srcIndex = targetIndex
+        monitor.getItem.tmp = true
+      } else if (srcListId === targetCard.listId && srcIndex !== targetIndex) {
+        props.orderCard(srcIndex, targetIndex, srcListId)
+        monitor.getItem().srcIndex = targetIndex
+      }
     }
-
-    // Dragging upwards
-    if (dragListId === props.card.listId && dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-      return null
-    }
-
-
-    // Time to actually perform the action
-    props.moveCard(dragIndex, dragListId, hoverIndex, props.card.listId)
-
-    // Note: we're mutating the monitor item here!
-    // Generally it's better to avoid mutations,
-    // but it's good here for the sake of performance
-    // to avoid expensive index searches.
-    monitor.getItem().index = hoverIndex
-
-    return true
   },
 
-  drop(props, monitor, component) {
-    const { listId, cardId } = monitor.getItem()
-    const targetId = props.card.listId
-    props.mutateMovement(listId, targetId, cardId)
+  canDrop(props, monitor) {
+    const targetIndex = props.index
+    const targetListId = props.card.listId
+    const srcIndex = monitor.getItem().originalIndex
+    const srcListId = monitor.getItem().originalListId
+
+    return srcIndex !== targetIndex || srcListId !== targetListId
+  },
+
+  drop(props, monitor) {
+    const card = monitor.getItem().originalCard
+    const targetIndex = props.index
+    const targetListId = props.card.listId
+
+    props.mutateMovement(card.listId, targetListId, card._id, targetIndex)
   },
 }
 

@@ -1,11 +1,15 @@
 const sourceSpec = {
   beginDrag(props) {
     return {
-      id: props.id,
-      index: props.index,
-      cardId: props.card._id,
-      listId: props.card.listId,
+      originalIndex: props.index,
+      originalCard: props.card,
+      srcIndex: props.index,
+      srcListId: props.card.listId, // will be updated on drag
     }
+  },
+
+  isDragging(props, monitor) {
+    return monitor.getItem().originalCard._id === props.card._id
   },
 }
 
