@@ -31,24 +31,8 @@ const CardsContainer = styled.div`
     overflow-y: auto;
 `
 
-const ListFooter = styled.div` 
-    line-height: ${({ theme }) => theme.size.listFooter};
-    border-bottom-left-radius: ${({ theme }) => theme.size.listBorderRadius};
-    border-bottom-right-radius: ${({ theme }) => theme.size.listBorderRadius};
-    color: #888;
-    
-    cursor: pointer;
-    
-    &:hover {
-      background-color: #c4c9cc;
-    }
-    
-    display: ${({ isAddingCard }) => (isAddingCard ? 'none' : 'block')}
-`
-
 export {
   ListContainer,
   ListContent,
   CardsContainer,
-  ListFooter,
 }

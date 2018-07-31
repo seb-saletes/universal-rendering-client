@@ -19,38 +19,28 @@ const isMovable = (component, monitor) => {
 
 const targetSpec = {
   hover(props, monitor, component) {
-    const targetCard = props.card
-    const targetIndex = props.index
 
     const { srcIndex, srcListId } = monitor.getItem()
 
     if (isMovable(component, monitor)) {
-      if (srcListId !== targetCard.listId) {
-        props.moveCard(srcIndex, targetIndex, srcListId, targetCard.listId)
-        monitor.getItem().srcListId = targetCard.listId
-        monitor.getItem().srcIndex = targetIndex
-      } else if (srcListId === targetCard.listId && srcIndex !== targetIndex) {
-        props.orderCard(srcIndex, targetIndex, srcListId)
-        monitor.getItem().srcIndex = targetIndex
+      if (srcListId !== props.list._id) {
+        props.moveCard(srcIndex, 0, srcListId, props.list._id)
+        monitor.getItem().srcListId = props.list._id
+        monitor.getItem().srcIndex = 0
       }
     }
   },
 
   canDrop(props, monitor) {
-    const targetIndex = props.index
-    const targetListId = props.card.listId
-    const srcIndex = monitor.getItem().originalIndex
     const srcListId = monitor.getItem().originalListId
 
-    return srcIndex !== targetIndex || srcListId !== targetListId
+    return srcListId !== props.list._id
   },
 
   drop(props, monitor) {
     const card = monitor.getItem().originalCard
-    const targetIndex = props.index
-    const targetListId = props.card.listId
 
-    props.mutateMovement(card.listId, targetListId, card._id, targetIndex)
+    props.mutateMovement(card.listId, props.list._id, card._id, 0)
   },
 }
 
