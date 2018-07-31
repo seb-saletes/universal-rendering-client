@@ -3,7 +3,8 @@ import styled from 'styled-components'
 
 const Container = styled.div` 
   line-height: ${({ theme }) => theme.size.listHeader};
-  font-size: 16px;
+  font-size: 14px;
+  
   font-weight: bold;
   border-top-left-radius: ${({ theme }) => theme.size.listBorderRadius};
   border-top-right-radius: ${({ theme }) => theme.size.listBorderRadius};
@@ -13,6 +14,10 @@ const Container = styled.div`
   justify-content: space-between;
   
   flex: 0 0 auto;
+  
+  ${({ theme: { media } }) => media.phone`
+    font-size: 16px;  
+  `};
 `
 
 const Button = styled(props => (

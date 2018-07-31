@@ -3,7 +3,12 @@ import styled from 'styled-components'
 const ListsContainer = styled.div` 
   display: flex;
   overflow-x: scroll;
-  padding: 20px 0;
+  padding: 10px 0;  
+  
+  
+  ${({ theme: { media } }) => media.phone`
+    padding: 20px 0;  
+  `};
   
   > * {
       flex: 0 0 auto;

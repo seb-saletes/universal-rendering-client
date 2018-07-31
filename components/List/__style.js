@@ -1,10 +1,14 @@
 import styled from 'styled-components'
 
 const ListContainer = styled.div`
-
-  width: ${({ theme }) => theme.size.listWidth};
+  width: 270px;
+  
   height: 100%;
   display: inline-block;
+  
+  ${({ theme: { media } }) => media.phone`
+      width: ${({ theme }) => theme.size.listWidth};
+  `};
 `
 
 const ListContent = styled.div`

@@ -4,9 +4,19 @@ const Container = styled.div`
   position: relative;
   padding: ${({ theme }) => theme.size.gap};
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+
+  
   background-color: ${({ theme }) => theme.color.navbar};
-  font-size: 1.5rem;
+  font-size: 16px;
+    
+  ${({ theme: { media } }) => media.tablet`
+    align-items: center;
+  `};
+  
+  ${({ theme: { media } }) => media.desktop`
+    font-size: 24px;  
+  `};
 `
 
 const LogoutButton = styled.span`
@@ -16,26 +26,43 @@ const LogoutButton = styled.span`
   cursor: pointer;
   z-index: 1;
   font-size: 14px;
-  margin-left: auto;
+  margin: auto 0 auto auto;
+  
+  ${({ theme: { media } }) => media.desktop`
+    margin: 0 0 0 auto;
+  `};
   
   &:hover {
     background: hsla(0, 0%, 100%, .2);
   }
 `
+
 const SearchbBar = styled.input`
-    position: absolute;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  width: 140px;
+  
+  border-radius: 3px;
+  border: none;
+  font-size: 13px;
+  height: 32px;
+  padding-right: 32px;
+  padding-left: 8px;
+  line-height: 19px;
+   
+   
+  ${({ theme: { media } }) => media.tablet`
+    display: block;
+    width: 200px;
     left: 0;
     margin: auto;
     right: 0;
-
-    border-radius: 3px;
-    border: none;
-    font-size: 13px;
-    height: 32px;
-    padding-right: 32px;
-    padding-left: 8px;
-    line-height: 19px;
+  `};
+  
+  ${({ theme: { media } }) => media.desktop`
     width: 300px;
+  `};
     
     &:active, &:focus {
       border: none;

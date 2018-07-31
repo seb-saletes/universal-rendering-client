@@ -22,6 +22,7 @@ const theme = {
 
   size: {
     navbar: '50px',
+    navbarMobile: '80px',
     listHeader: '36px',
     listFooter: '36px',
     listWidth: '300px',
@@ -33,7 +34,7 @@ const theme = {
 
   media: Object.keys(sizes).reduce((accumulator, label) => {
     accumulator[label] = (...args) => css`
-    @media (max-width: ${sizes[label]}em) {
+    @media (min-width: ${sizes[label]}px) {
       ${css(...args)}
     }
   `

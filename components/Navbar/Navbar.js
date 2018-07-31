@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { debounce as _debounce } from 'lodash'
 
-import { Container, LogoutButton, SearchbBar } from './_style'
+import { Container, LogoutButton, SearchbBar } from './__style'
 
 class Navbar extends React.Component {
   constructor(props) {
@@ -14,7 +14,7 @@ class Navbar extends React.Component {
   render() {
     return (
       <Container>
-        HKUST Individual Project
+        <div>HKUST Individual Project</div>
         <SearchbBar
           onChange={e => this.onSearch(e.target.value)}
           placeholder="Search cards"
