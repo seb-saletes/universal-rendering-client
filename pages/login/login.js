@@ -8,6 +8,8 @@ class Login extends React.Component {
       mode: 'CREATE',
       title: 'Create Account',
       altText: 'login',
+      email: null,
+      password: null,
     }
   }
 
@@ -17,6 +19,14 @@ class Login extends React.Component {
     } else {
       this.setState({ mode: 'CREATE', title: 'Create Account', altText: 'login' })
     }
+  }
+
+  setEmail = (e) => {
+    console.log(e)
+  }
+
+  setPasword = (e) => {
+    console.log(e)
   }
 
   render() {
@@ -34,6 +44,7 @@ class Login extends React.Component {
         <Form>
           <Label htmlFor="user">E-mail</Label>
           <Input
+            onChange={this.setEmail}
             type="email"
             name="user"
             id="user"
@@ -44,7 +55,14 @@ class Login extends React.Component {
             placeholder="ex.,  threepwood@grogmail.com"
           />
           <Label htmlFor="password">Mot de passe</Label>
-          <Input type="password" name="password" id="password" tabIndex="2" placeholder="ex., ••••••••••••" />
+          <Input
+            onChange={this.setPasword}
+            type="password"
+            name="password"
+            id="password"
+            tabIndex="2"
+            placeholder="ex., ••••••••••••"
+          />
 
           <SubmitButton type="button">{this.state.title}</SubmitButton>
         </Form>

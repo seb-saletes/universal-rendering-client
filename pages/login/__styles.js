@@ -1,13 +1,18 @@
 import styled from 'styled-components'
 
 const Container = styled.div`
-    width: 430px;
+    width: calc(100% - 20px);
+    padding: 10px;
     position: absolute;
     top: 100px;
     left: 0;
     right: 0;
     margin: auto;
     max-height: 300px;
+    
+    ${({ theme: { media } }) => media.phone`
+      width: 430px;
+    `};
 
 `
 
@@ -48,13 +53,17 @@ const Label = styled.label`
 const Input = styled.input`
   padding: 10px;
   height: 30px;
-  width: 410px;
+  width: calc(100% - 20px);
   font-size: 20px;
   font-weight: 300;
   border-radius: 3px;
   background: #edeff0;
   margin-bottom: 24px;
   border: 1px solid #cdd2d4;
+  
+  ${({ theme: { media } }) => media.phone`
+    width: 410px;
+  `};
   
   &:focus {
     border-color: #a5acb0;
