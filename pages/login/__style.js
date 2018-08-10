@@ -73,6 +73,7 @@ const Input = styled.input`
 `
 
 const SubmitButton = styled.button`
+  opacity: ${({ disabled }) => (disabled ? '0.7' : '1')};
   width: 100%;
   background: #61bd4f;
   border-radius: 3px;
@@ -84,6 +85,16 @@ const SubmitButton = styled.button`
   box-shadow: 0 2px 0 #3f6f21;
 `
 
+const Error = styled.div`
+  color: red;
+  text-align: center;
+  position: absolute;
+  bottom: -40px;
+  left: 0;
+  right: 0;
+  font-size: 18px;
+`
+
 export {
   Container,
   Title,
@@ -93,4 +104,5 @@ export {
   Label,
   Input,
   SubmitButton,
+  Error,
 }

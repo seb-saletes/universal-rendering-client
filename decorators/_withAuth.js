@@ -1,7 +1,14 @@
 import React from 'react'
+import { withApollo, Query } from 'react-apollo'
+import gql from 'graphql-tag'
 
-export default ComposedComponent => props => (
-  <React.Fragment>
-    <ComposedComponent {...props} />
-  </React.Fragment>
-)
+const GET_AUTH_TOKEN = gql` {
+    authToken @client
+  }
+`
+
+export default ComposedComponent => withApollo(props => (
+  <Query query={GET_AUTH_TOKEN}>
+    {({ data }) => <ComposedComponent {...props} authToken={data.authToken} />}
+  </Query>
+))

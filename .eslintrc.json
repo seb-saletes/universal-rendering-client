@@ -34,5 +34,9 @@
     "jsx-a11y/interactive-supports-focus": "off",
     "import/prefer-default-export": "off",
     "no-param-reassign": "off"
+  },
+  "globals": {
+    "document": true,
+    "window": true
   }
 }
